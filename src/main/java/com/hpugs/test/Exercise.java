@@ -1,0 +1,8 @@
+package com.hpugs.test;
+
+public class Exercise {
+
+    public static void main(String[] args) {
+
+    }
+}

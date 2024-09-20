@@ -1,0 +1,36 @@
+plugins {
+    id 'java'
+}
+
+group 'com.hpugs.test'
+version '1.0-SNAPSHOT'
+
+repositories {
+    maven {
+        url 'https://maven.aliyun.com/repository/public'
+    }
+    maven {
+        credentials {
+            username '5f87b5f7cd2214ba0eac47eb'
+            password 't2fr3sx7yIE3'
+        }
+        url 'https://packages.aliyun.com/maven/repository/2041990-release-QcCqWw/'
+    }
+    maven {
+        credentials {
+            username '5f87b5f7cd2214ba0eac47eb'
+            password 't2fr3sx7yIE3'
+        }
+        url 'https://packages.aliyun.com/maven/repository/2041990-snapshot-j7bhHR/'
+    }
+    mavenLocal()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
+
+test {
+    useJUnitPlatform()
+}
