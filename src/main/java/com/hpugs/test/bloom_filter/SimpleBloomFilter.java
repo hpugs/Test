@@ -5,7 +5,7 @@ import java.util.BitSet;
 /**
  * bloom filter 布隆过滤器
  */
-public class SimpleBloomFilter {
+public class SimpleBloomFilter implements IBloomFilter {
 
     private static final int DEFAULT_SIZE = 2 << 24;
     private static final int[] seeds = new int[]{7, 11, 13, 31, 37, 41, 43, 47, 53, 59};
@@ -19,6 +19,15 @@ public class SimpleBloomFilter {
         }
     }
 
+    public static void main(String[] args) {
+        SimpleBloomFilter simpleBloomFilter = new SimpleBloomFilter();
+        String abc = "abc";
+        simpleBloomFilter.add(abc);
+        boolean contains = simpleBloomFilter.contains(abc);
+        System.out.println(contains);
+    }
+
+
     public void add(Object value) {
         for (SimpleHash hash : hashFunctions) {
             bits.set(hash.hash(value), true);
@@ -29,9 +38,24 @@ public class SimpleBloomFilter {
         if (value == null) return false;
         boolean result = true;
         for (SimpleHash hash : hashFunctions) {
-            result = result & bits.get(hash.hash(value));
+            result = result && bits.get(hash.hash(value));
         }
         return result;
+    }
+
+    @Override
+    public String getName() {
+        return "SimpleBloomFilter";
+    }
+
+    @Override
+    public void put(Object obj) {
+        add(obj);
+    }
+
+    @Override
+    public boolean mightContain(Object obj) {
+        return contains(obj);
     }
 
     public static class SimpleHash {
